@@ -59,28 +59,28 @@ export default function FooterSection() {
             </div>
           </div>
 
-          {/* Column 2: Collective */}
+          {/* Column 2: Navegación */}
           <div className="space-y-4">
-            <h4 className="text-white font-bold text-sm tracking-wide">Collective</h4>
+            <h4 className="text-white font-bold text-sm tracking-wide">Navegación</h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href={FOOTER_LINKS.collective.proceso} className="hover:text-emerald-400 transition-colors">
+                <Link href={FOOTER_LINKS.navegacion.proceso} className="hover:text-emerald-400 transition-colors">
                   Proceso
                 </Link>
               </li>
               <li>
-                <Link href={FOOTER_LINKS.collective.servicios} className="hover:text-emerald-400 transition-colors">
+                <Link href={FOOTER_LINKS.navegacion.servicios} className="hover:text-emerald-400 transition-colors">
                   Servicios
                 </Link>
               </li>
               <li>
-                <Link href={FOOTER_LINKS.collective.estandares} className="hover:text-emerald-400 transition-colors">
+                <Link href={FOOTER_LINKS.navegacion.estandares} className="hover:text-emerald-400 transition-colors">
                   Estándares
                 </Link>
               </li>
               <li>
-                <Link href={FOOTER_LINKS.collective.trabajos} className="hover:text-emerald-400 transition-colors">
-                  Trabajos
+                <Link href={FOOTER_LINKS.navegacion.contacto} className="hover:text-emerald-400 transition-colors">
+                  Contacto
                 </Link>
               </li>
             </ul>

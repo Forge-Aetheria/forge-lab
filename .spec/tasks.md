@@ -47,9 +47,16 @@ Track progress of tasks following Specification-Driven Development guidelines.
 
 ---
 
-## Milestone 6: SEO, Social Sharing & Error UX (Current)
+## Milestone 6: SEO, Social Sharing & Error UX
 - [x] **Task 6.1 (Commit 1)**: Open Graph (OG) social card image generation and metadata in layout.tsx.
 - [x] **Task 6.2 (Commit 2)**: Dynamic Sitemap.xml and Robots.txt generation for Google indexation.
 - [x] **Task 6.3 (Commit 3)**: Custom 404 Not Found error page styled with Forge.lab dark theme.
 - [x] **Task 6.4 (Commit 4)**: Integration of Vercel Web Analytics (@vercel/analytics/next) in layout.tsx.
 - [x] **Task 6.5 (Commit 5)**: Custom conversion events tracking for CTAs, lead form submissions, and direct contact.
+
+---
+
+## Milestone 7: Domain Branding & Footer UX Polish (Current)
+- [x] **Task 7.1 (Commit 1)**: Official domain https://www.forgelab.lat configuration in metadata, sitemap, robots and OG card.
+- [x] **Task 7.2 (Commit 2)**: Interactive phone popover tooltip (+2 líneas) in direct contact footer.
+- [x] **Task 7.3 (Commit 3)**: Rename "Collective" to "Navegación" in footer and routes for Spanish consistency.
