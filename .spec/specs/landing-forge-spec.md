@@ -175,9 +175,13 @@
 
 ---
 
-## Section 11: Analíticas Web (`web-analytics`)
+## Section 11: Analíticas Web & Custom Events (`web-analytics`)
 - **Proveedor**: Vercel Web Analytics (`@vercel/analytics`).
 - **Implementación**: Componente `<Analytics />` en `src/app/layout.tsx`.
 - **Características**:
   - Cero cookies invasivas (cumple 100% GDPR/CCPA sin requerir banner de consentimiento).
   - Medición en tiempo real de visitantes únicos, páginas vistas, fuentes de referencia, países, dispositivos y velocidad web.
+- **Eventos Personalizados de Conversión (Custom Events)**:
+  - `cta_agendar_click`: Registrado al hacer clic en botones principales de agendar (propiedades: `{ location: "navbar_desktop" | "navbar_mobile" | "hero" }`).
+  - `lead_form_submitted`: Registrado tras el envío exitoso del formulario de contacto (propiedad: `{ service: string }`).
+  - `direct_contact_click`: Registrado al hacer clic en enlaces de contacto directo en el footer (propiedades: `{ type: "email" | "phone", number?: string }`).

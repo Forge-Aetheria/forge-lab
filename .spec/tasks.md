@@ -52,3 +52,4 @@ Track progress of tasks following Specification-Driven Development guidelines.
 - [x] **Task 6.2 (Commit 2)**: Dynamic Sitemap.xml and Robots.txt generation for Google indexation.
 - [x] **Task 6.3 (Commit 3)**: Custom 404 Not Found error page styled with Forge.lab dark theme.
 - [x] **Task 6.4 (Commit 4)**: Integration of Vercel Web Analytics (@vercel/analytics/next) in layout.tsx.
+- [x] **Task 6.5 (Commit 5)**: Custom conversion events tracking for CTAs, lead form submissions, and direct contact.

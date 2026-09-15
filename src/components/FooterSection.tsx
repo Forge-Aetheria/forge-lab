@@ -1,6 +1,9 @@
+"use client";
+
 import { Mail, Phone, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 import { FOOTER_LINKS } from "@/config/routes";
 
 export default function FooterSection() {
@@ -101,20 +104,32 @@ export default function FooterSection() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2.5 text-slate-300">
                 <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a href={FOOTER_LINKS.contactoDirecto.email} className="hover:text-emerald-400 transition-colors">
+                <a
+                  href={FOOTER_LINKS.contactoDirecto.email}
+                  onClick={() => track("direct_contact_click", { type: "email" })}
+                  className="hover:text-emerald-400 transition-colors"
+                >
                   {FOOTER_LINKS.contactoDirecto.emailText}
                 </a>
               </li>
               <li className="flex items-center gap-2.5 text-slate-300">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a href={FOOTER_LINKS.contactoDirecto.phone} className="hover:text-emerald-400 transition-colors">
+                <a
+                  href={FOOTER_LINKS.contactoDirecto.phone}
+                  onClick={() => track("direct_contact_click", { type: "phone", number: "phone1" })}
+                  className="hover:text-emerald-400 transition-colors"
+                >
                   {FOOTER_LINKS.contactoDirecto.phoneText}
                 </a>
               </li>
               {"phone2" in FOOTER_LINKS.contactoDirecto && (
                 <li className="flex items-center gap-2.5 text-slate-300">
                   <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <a href={FOOTER_LINKS.contactoDirecto.phone2} className="hover:text-emerald-400 transition-colors">
+                  <a
+                    href={FOOTER_LINKS.contactoDirecto.phone2}
+                    onClick={() => track("direct_contact_click", { type: "phone", number: "phone2" })}
+                    className="hover:text-emerald-400 transition-colors"
+                  >
                     {FOOTER_LINKS.contactoDirecto.phone2Text}
                   </a>
                 </li>
@@ -122,7 +137,11 @@ export default function FooterSection() {
               {"phone3" in FOOTER_LINKS.contactoDirecto && (
                 <li className="flex items-center gap-2.5 text-slate-300">
                   <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <a href={FOOTER_LINKS.contactoDirecto.phone3} className="hover:text-emerald-400 transition-colors">
+                  <a
+                    href={FOOTER_LINKS.contactoDirecto.phone3}
+                    onClick={() => track("direct_contact_click", { type: "phone", number: "phone3" })}
+                    className="hover:text-emerald-400 transition-colors"
+                  >
                     {FOOTER_LINKS.contactoDirecto.phone3Text}
                   </a>
                 </li>

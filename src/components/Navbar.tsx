@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 import { NAV_LINKS } from "@/config/routes";
 
 export default function Navbar() {
@@ -43,6 +44,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center">
           <Link
             href={NAV_LINKS.ctaAgendar}
+            onClick={() => track("cta_agendar_click", { location: "navbar_desktop" })}
             className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-emerald-500 text-white font-semibold text-sm hover:bg-emerald-600 transition-all shadow-md shadow-emerald-500/20 active:scale-95"
           >
             Agendar Llamada
@@ -98,7 +100,10 @@ export default function Navbar() {
           </Link>
           <Link
             href={NAV_LINKS.ctaAgendar}
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => {
+              track("cta_agendar_click", { location: "navbar_mobile" });
+              setMobileMenuOpen(false);
+            }}
             className="inline-block w-full text-center px-5 py-3 rounded-full bg-emerald-500 text-white font-semibold text-sm"
           >
             Agendar Llamada

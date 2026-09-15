@@ -2,6 +2,7 @@
 
 import { Clock, FileText, ArrowRight, CheckCircle2, AlertCircle, Loader2, ShieldCheck } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { track } from "@vercel/analytics";
 import emailjs from "@emailjs/browser";
 import { EMAILJS_CONFIG } from "@/config/routes";
 
@@ -96,6 +97,12 @@ export default function LeadCaptureSection() {
       // Guardar timestamp del envío exitoso
       localStorage.setItem("forge_last_submit_ts", Date.now().toString());
       setCooldownRemaining(COOLDOWN_SECONDS);
+
+      // Registrar evento de conversión en Vercel Analytics
+      track("lead_form_submitted", {
+        service: formData.user_service || "Sin especificar",
+      });
+
       setSubmitted(true);
       setFormData({ user_name: "", user_email: "", user_service: "", user_message: "" });
     } catch (error: unknown) {

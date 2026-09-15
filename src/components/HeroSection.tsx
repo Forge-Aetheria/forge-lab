@@ -1,5 +1,8 @@
+"use client";
+
 import { ArrowRight, Check, Lightbulb, Users, Cpu, Lock, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 import { HERO_LINKS } from "@/config/routes";
 
 export default function HeroSection() {
@@ -33,6 +36,7 @@ export default function HeroSection() {
             <div className="space-y-4 pt-2">
               <Link
                 href={HERO_LINKS.ctaDiagnostico}
+                onClick={() => track("cta_agendar_click", { location: "hero" })}
                 className="inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full bg-brand-emerald text-white font-bold text-base sm:text-lg hover:bg-brand-emeraldHover transition-all shadow-lg shadow-brand-emerald/25 hover:shadow-brand-emerald/40 active:scale-98"
               >
                 <span>Agendar Sesión de Diagnóstico</span>
