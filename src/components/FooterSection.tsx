@@ -1,4 +1,5 @@
 import { Mail, Phone, Github } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { FOOTER_LINKS } from "@/config/routes";
 
@@ -12,13 +13,14 @@ export default function FooterSection() {
           
           {/* Brand & Socials Column (Spans 2 cols on lg) */}
           <div className="lg:col-span-2 space-y-5">
-            <Link href={FOOTER_LINKS.brand} className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">
-                &gt;_
-              </div>
-              <span className="text-xl font-bold tracking-tight text-white group-hover:text-emerald-400 transition-colors">
-                Forge<span className="text-emerald-400">.lab</span>
-              </span>
+            <Link href={FOOTER_LINKS.brand} className="inline-flex items-center group transition-opacity hover:opacity-90">
+              <Image
+                src="/logo.png"
+                alt="Forge.lab"
+                width={120}
+                height={40}
+                className="h-10 w-auto object-contain"
+              />
             </Link>
 
             <p className="text-slate-400 text-sm max-w-sm leading-relaxed font-normal">

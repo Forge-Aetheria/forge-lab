@@ -1,6 +1,6 @@
 "use client";
 
-import { Terminal } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { NAV_LINKS } from "@/config/routes";
@@ -12,13 +12,15 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-slate-800/60 bg-[#081225]/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo */}
-        <Link href="#" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">
-            &gt;_
-          </div>
-          <span className="text-xl font-bold tracking-tight text-white group-hover:text-emerald-400 transition-colors">
-            Forge<span className="text-emerald-400">.lab</span>
-          </span>
+        <Link href="#" className="flex items-center group transition-opacity hover:opacity-90">
+          <Image
+            src="/logo.png"
+            alt="Forge.lab"
+            width={120}
+            height={40}
+            className="h-10 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation Links */}

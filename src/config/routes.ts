@@ -19,7 +19,7 @@ export const HERO_LINKS = {
 export const FOOTER_LINKS = {
   brand: "#",
   socials: {
-    github: "https://github.com",
+    github: "https://github.com/Forge-Aetheria",
   },
   collective: {
     proceso: "#proceso",
@@ -38,10 +38,10 @@ export const FOOTER_LINKS = {
     emailText: "forge.lap.ve@gmail.com",
     phone: "tel:+584123161016",
     phoneText: "+58 412 316 1016",
-    phone2: "tel:+584120000000",
-    phone2Text: "+58 412 000 0000",
-    phone3: "tel:+584140000000",
-    phone3Text: "+58 414 000 0000",
+    phone2: "tel:+584248610492",
+    phone2Text: "+58 424 861 0492",
+    phone3: "tel:+584248608903",
+    phone3Text: "+58 424 860 8903",
   },
   legal: {
     privacidad: "#",
@@ -49,10 +49,6 @@ export const FOOTER_LINKS = {
   },
 } as const;
 
-/**
- * EMAILJS CONFIGURATION
- * Coloca aquí tus claves obtenidas desde el panel de EmailJS (https://dashboard.emailjs.com)
- */
 export const EMAILJS_CONFIG = {
   publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "TU_PUBLIC_KEY_AQUI",
   serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "ID_DE_TU_SERVICIO",

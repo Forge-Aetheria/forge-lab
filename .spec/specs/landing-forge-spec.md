@@ -129,7 +129,7 @@
 ![Footer Section Screenshot](/Users/franciscomaneiro/.gemini/antigravity/brain/cd137f09-b0d9-419f-91cf-fa018874f11c/.user_uploaded/media_1789438806924.png)
 
 ### 6.1 Brand & Socials (Social links removed temporarily)
-- **Brand**: `>_ Forge.lab` + biografía.
+- **Brand**: Logo oficial Forge.lab (`/logo.png`) en Navbar y Footer + biografía corporativa.
 - **Socials**: Se ocultan temporalmente los enlaces de Facebook, Twitter y LinkedIn. Solo permanece GitHub o contenedor despejado.
 
 ### 6.2 Contacto Directo (Ampliación a múltiples teléfonos)
@@ -142,3 +142,9 @@
 ### 6.3 Bottom Bar
 - `© 2026 Forge.lab. Todos los derechos reservados.`
 - `Privacidad` | `Términos de Servicio`
+
+---
+
+## Section 7: Brand Assets & Favicon (`branding-assets`)
+- **Header & Footer Brand Logo**: Imagen PNG transparente oficial (`public/logo.png`), que integra el matraz y la tipografía "FORGE.lab" estilizada.
+- **Favicon & App Icon**: Imagen PNG transparente del matraz (`public/favicon.png`, `src/app/icon.png`, `src/app/apple-icon.png`), integrado automáticamente en Next.js 15 App Router y configurado en el `metadata` de `layout.tsx`.
