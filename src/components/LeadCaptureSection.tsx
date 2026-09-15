@@ -1,20 +1,49 @@
 "use client";
 
-import { Clock, FileText, ArrowRight, CheckCircle2 } from "lucide-react";
-import { useState } from "react";
+import { Clock, FileText, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
+import { EMAILJS_CONFIG } from "@/config/routes";
 
 export default function LeadCaptureSection() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    projectType: "",
-    description: "",
+    user_name: "",
+    user_email: "",
+    user_service: "",
+    user_message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      if (formRef.current) {
+        await emailjs.sendForm(
+          EMAILJS_CONFIG.serviceId,
+          EMAILJS_CONFIG.templateId,
+          formRef.current,
+          {
+            publicKey: EMAILJS_CONFIG.publicKey,
+          }
+        );
+      }
+      setSubmitted(true);
+      setFormData({ user_name: "", user_email: "", user_service: "", user_message: "" });
+    } catch (error: unknown) {
+      console.error("Error al enviar con EmailJS:", error);
+      setErrorMessage(
+        "Ocurrió un inconveniente al enviar la solicitud. Por favor verifica tus credenciales de EmailJS o inténtalo nuevamente."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -65,7 +94,7 @@ export default function LeadCaptureSection() {
               </div>
             </div>
 
-            {/* Right Column: Dark Theme Form Card */}
+            {/* Right Column: Form Card with EmailJS Integration */}
             <div className="lg:col-span-7 bg-[#0a1424] border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl">
               {submitted ? (
                 <div className="py-12 text-center space-y-4">
@@ -73,10 +102,10 @@ export default function LeadCaptureSection() {
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">
-                    ¡Solicitud Recibida!
+                    ¡Solicitud Enviada!
                   </h3>
                   <p className="text-slate-300 text-sm max-w-md mx-auto">
-                    Gracias por contactarnos. Un arquitecto senior de nuestro equipo revisará tu mensaje y te responderá en menos de 24 horas.
+                    Gracias. Nos pondremos en contacto contigo pronto para evaluar tu solicitud.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -86,69 +115,79 @@ export default function LeadCaptureSection() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Field 1: Nombre Completo */}
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+                  {errorMessage && (
+                    <div className="p-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-300 text-xs flex items-center gap-3">
+                      <AlertCircle className="w-5 h-5 shrink-0 text-red-400" />
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
+
+                  {/* Field 1: Nombre (user_name) */}
                   <div>
                     <label className="block text-xs font-semibold text-white mb-2">
                       Nombre Completo
                     </label>
                     <input
                       type="text"
+                      name="user_name"
                       required
                       placeholder="Ej. Juan Pérez"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      value={formData.user_name}
+                      onChange={(e) => setFormData({ ...formData, user_name: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#070f1e] text-white border border-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition-colors"
                     />
                   </div>
 
-                  {/* Field 2: Correo Corporativo */}
+                  {/* Field 2: Correo (user_email) */}
                   <div>
                     <label className="block text-xs font-semibold text-white mb-2">
-                      Correo Corporativo
+                      Correo Electrónico
                     </label>
                     <input
                       type="email"
+                      name="user_email"
                       required
                       placeholder="Ej. juan@empresa.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      value={formData.user_email}
+                      onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#070f1e] text-white border border-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition-colors"
                     />
                   </div>
 
-                  {/* Field 3: Tipo de Proyecto */}
+                  {/* Field 3: Servicio (user_service) */}
                   <div>
                     <label className="block text-xs font-semibold text-white mb-2">
-                      Tipo de Proyecto
+                      Servicio
                     </label>
                     <select
+                      name="user_service"
                       required
-                      value={formData.projectType}
-                      onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                      value={formData.user_service}
+                      onChange={(e) => setFormData({ ...formData, user_service: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#070f1e] text-white border border-slate-800 focus:outline-none focus:border-emerald-500 text-sm transition-colors"
                     >
                       <option value="" disabled>
-                        Selecciona una opción...
+                        Selecciona un servicio...
                       </option>
-                      <option value="web">Web & Backend</option>
-                      <option value="mobile">Mobile Apps</option>
-                      <option value="devops">Integración & DevOps</option>
-                      <option value="desktop">Desktop Solutions</option>
+                      <option value="Desarrollo Web">Desarrollo Web</option>
+                      <option value="Marketing Digital">Marketing Digital</option>
+                      <option value="Consultoría">Consultoría</option>
                     </select>
                   </div>
 
-                  {/* Field 4: Breve descripción del software */}
+                  {/* Field 4: Mensaje (user_message) */}
                   <div>
                     <label className="block text-xs font-semibold text-white mb-2">
-                      Breve descripción del software
+                      Mensaje
                     </label>
                     <textarea
+                      name="user_message"
                       rows={3}
                       required
                       placeholder="Cuéntanos un poco sobre lo que buscas construir..."
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      value={formData.user_message}
+                      onChange={(e) => setFormData({ ...formData, user_message: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#070f1e] text-white border border-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-emerald-500 text-sm resize-none transition-colors"
                     />
                   </div>
@@ -156,10 +195,20 @@ export default function LeadCaptureSection() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-98"
+                    disabled={loading}
+                    className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-800 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-98"
                   >
-                    <span>Solicitar Diagnóstico Gratuito</span>
-                    <ArrowRight className="w-4 h-4" />
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin text-white" />
+                        <span>Enviando...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Solicitar Servicio</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
 
                   <p className="text-center text-[10px] text-slate-500 pt-1">

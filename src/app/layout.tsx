@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Forge.dev | Colectivo Selecto de Ingenieros Senior",
+  title: "Forge.lab | Colectivo Selecto de Ingenieros Senior",
   description: "Transformamos ideas complejas en aplicaciones web, móviles, herramientas cloud y software empresarial de alta calidad.",
 };
 

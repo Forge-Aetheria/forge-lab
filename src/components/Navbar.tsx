@@ -17,7 +17,7 @@ export default function Navbar() {
             &gt;_
           </div>
           <span className="text-xl font-bold tracking-tight text-white group-hover:text-emerald-400 transition-colors">
-            Forge<span className="text-emerald-400">.dev</span>
+            Forge<span className="text-emerald-400">.lab</span>
           </span>
         </Link>
 

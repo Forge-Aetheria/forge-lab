@@ -91,8 +91,8 @@ export const FOOTER_LINKS = {
     github: "https://github.com/tu-organizacion",
   },
   contactoDirecto: {
-    email: "mailto:contacto@forge.dev",
-    emailText: "contacto@forge.dev",
+    email: "mailto:contacto@forge.lab",
+    emailText: "contacto@forge.lab",
     phone: "tel:+34900123456",
     phoneText: "+34 900 123 456",
   },

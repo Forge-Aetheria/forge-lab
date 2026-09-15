@@ -17,7 +17,7 @@ export default function FooterSection() {
                 &gt;_
               </div>
               <span className="text-xl font-bold tracking-tight text-white group-hover:text-emerald-400 transition-colors">
-                Forge<span className="text-emerald-400">.dev</span>
+                Forge<span className="text-emerald-400">.lab</span>
               </span>
             </Link>
 
@@ -143,7 +143,7 @@ export default function FooterSection() {
 
         {/* Divider & Bottom Footer Bar */}
         <div className="mt-16 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© 2026 Forge.dev. Todos los derechos reservados.</p>
+          <p>© 2026 Forge.lab. Todos los derechos reservados.</p>
           <div className="flex items-center gap-6">
             <a href={FOOTER_LINKS.legal.privacidad} className="hover:text-emerald-400 transition-colors">
               Privacidad
