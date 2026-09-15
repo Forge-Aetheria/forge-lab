@@ -109,6 +109,22 @@ export default function FooterSection() {
                   {FOOTER_LINKS.contactoDirecto.phoneText}
                 </a>
               </li>
+              {"phone2" in FOOTER_LINKS.contactoDirecto && (
+                <li className="flex items-center gap-2.5 text-slate-300">
+                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <a href={FOOTER_LINKS.contactoDirecto.phone2} className="hover:text-emerald-400 transition-colors">
+                    {FOOTER_LINKS.contactoDirecto.phone2Text}
+                  </a>
+                </li>
+              )}
+              {"phone3" in FOOTER_LINKS.contactoDirecto && (
+                <li className="flex items-center gap-2.5 text-slate-300">
+                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <a href={FOOTER_LINKS.contactoDirecto.phone3} className="hover:text-emerald-400 transition-colors">
+                    {FOOTER_LINKS.contactoDirecto.phone3Text}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
 

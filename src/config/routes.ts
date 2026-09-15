@@ -38,6 +38,10 @@ export const FOOTER_LINKS = {
     emailText: "forge.lap.ve@gmail.com",
     phone: "tel:+584123161016",
     phoneText: "+58 412 316 1016",
+    phone2: "tel:+584120000000",
+    phone2Text: "+58 412 000 0000",
+    phone3: "tel:+584140000000",
+    phone3Text: "+58 414 000 0000",
   },
   legal: {
     privacidad: "#",
