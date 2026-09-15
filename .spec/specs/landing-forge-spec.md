@@ -148,3 +148,27 @@
 ## Section 7: Brand Assets & Favicon (`branding-assets`)
 - **Header & Footer Brand Logo**: Imagen PNG transparente oficial (`public/logo.png`). Se aplicó un recorte ajustado (trim) eliminando más de 50% de márgenes transparentes vacíos originales para que el arte ocupe el 98% del contenedor, optimizando la visibilidad a `h-10 sm:h-11` en Navbar y `h-11` en Footer.
 - **Favicon & App Icon**: Imagen PNG transparente del matraz (`public/favicon.png`, `src/app/icon.png`, `src/app/apple-icon.png`, `public/favicon.ico`). Se recortó ajustado y se centró en un lienzo cuadrado 512x512 para que el matraz aproveche la totalidad del área del icono en pestañas del navegador, configurado en el `metadata` de `layout.tsx`.
+
+---
+
+## Section 8: Open Graph & Social Card (`open-graph`)
+- **Dimensión estándar**: 1200 × 630 px (`public/og-image.png` y `src/app/opengraph-image.png`).
+- **Contenido**: Logo de Forge.lab, gradiente oscuro `#081225`, matraz químico característico, título `"Colectivo Selecto de Ingenieros Senior"` y píldoras de servicios (`Desarrollo Web · Mobile Apps · Cloud & DevOps`).
+- **Metadatos**: Configurado en `openGraph` y `twitter` en `src/app/layout.tsx` para generación automática de tarjetas al compartir en WhatsApp, LinkedIn, Twitter/X, Telegram y Slack.
+
+---
+
+## Section 9: SEO & Indexación (`seo-sitemap-robots`)
+- **Sitemap**: Generado vía `src/app/sitemap.ts` exportando `MetadataRoute.Sitemap` con frecuencia semanal y prioridad 1.0.
+- **Robots**: Generado vía `src/app/robots.ts` permitiendo indexación de agentes y referenciando el `sitemap.xml`.
+
+---
+
+## Section 10: Página 404 Personalizada (`custom-404`)
+- **Ruta**: `src/app/not-found.tsx`.
+- **Diseño**: Estilo de terminal / ingeniería acorde a Forge.lab sobre fondo `#060d1a`.
+- **Elementos**:
+  - Badge de estado `404 // Recurso no encontrado`.
+  - Encabezado temático de desarrollo: `Endpoint no encontrado`.
+  - Mensaje descriptivo indicando que la ruta no existe.
+  - Botón de retorno al inicio con estilo esmeralda `Regresar a la base`.

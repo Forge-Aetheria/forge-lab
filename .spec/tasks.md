@@ -38,8 +38,17 @@ Track progress of tasks following Specification-Driven Development guidelines.
 
 ---
 
-## Milestone 5: Refinements & Granular Commits (Current)
+## Milestone 5: Refinements & Granular Commits
 - [x] **Task 5.1 (Commit 1)**: Remove Facebook, Twitter, and LinkedIn links temporarily from Footer.
 - [x] **Task 5.2 (Commit 2)**: Add 2 additional phone number fields in Contacto Directo config & footer.
 - [x] **Task 5.3 (Commit 3)**: Remove all NDA mentions across Hero, Process, and Lead Capture sections.
 - [x] **Task 5.4 (Commit 4)**: Replace "Marketing Digital" with "Desarrollo App Móvil" in the service selector.
+- [x] **Task 5.5**: Official brand logo & trimmed favicon integration.
+
+---
+
+## Milestone 6: SEO, Social Sharing & Error UX (Current)
+- [ ] **Task 6.1 (Commit 1)**: Open Graph (OG) social card image generation and metadata in layout.tsx.
+- [ ] **Task 6.2 (Commit 2)**: Dynamic Sitemap.xml and Robots.txt generation for Google indexation.
+- [ ] **Task 6.3 (Commit 3)**: Custom 404 Not Found error page styled with Forge.lab dark theme.
+- [ ] **Task 6.4**: Analytics review and strategy discussion.
