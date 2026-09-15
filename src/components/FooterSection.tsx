@@ -1,4 +1,4 @@
-import { Mail, Phone, Facebook, Twitter, Linkedin, Github } from "lucide-react";
+import { Mail, Phone, Github } from "lucide-react";
 import Link from "next/link";
 import { FOOTER_LINKS } from "@/config/routes";
 
@@ -27,33 +27,6 @@ export default function FooterSection() {
 
             {/* Social Buttons */}
             <div className="flex items-center gap-2.5 pt-2">
-              <a
-                href={FOOTER_LINKS.socials.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-[#0a1424] hover:bg-emerald-500 hover:text-white text-slate-300 border border-slate-800 flex items-center justify-center transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a
-                href={FOOTER_LINKS.socials.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-[#0a1424] hover:bg-emerald-500 hover:text-white text-slate-300 border border-slate-800 flex items-center justify-center transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a
-                href={FOOTER_LINKS.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-[#0a1424] hover:bg-emerald-500 hover:text-white text-slate-300 border border-slate-800 flex items-center justify-center transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
               <a
                 href={FOOTER_LINKS.socials.github}
                 target="_blank"

@@ -19,9 +19,6 @@ export const HERO_LINKS = {
 export const FOOTER_LINKS = {
   brand: "#",
   socials: {
-    facebook: "https://facebook.com",
-    twitter: "https://twitter.com",
-    linkedin: "https://linkedin.com",
     github: "https://github.com",
   },
   collective: {
