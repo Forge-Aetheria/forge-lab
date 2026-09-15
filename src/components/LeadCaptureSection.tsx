@@ -259,7 +259,7 @@ export default function LeadCaptureSection() {
                         Selecciona un servicio...
                       </option>
                       <option value="Desarrollo Web">Desarrollo Web</option>
-                      <option value="Marketing Digital">Marketing Digital</option>
+                      <option value="Desarrollo App Móvil">Desarrollo App Móvil</option>
                       <option value="Consultoría">Consultoría</option>
                     </select>
                   </div>
