@@ -16,9 +16,9 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="Forge.lab"
-            width={120}
-            height={40}
-            className="h-10 w-auto object-contain"
+            width={160}
+            height={65}
+            className="h-10 sm:h-11 w-auto object-contain"
             priority
           />
         </Link>

@@ -146,5 +146,5 @@
 ---
 
 ## Section 7: Brand Assets & Favicon (`branding-assets`)
-- **Header & Footer Brand Logo**: Imagen PNG transparente oficial (`public/logo.png`), que integra el matraz y la tipografía "FORGE.lab" estilizada.
-- **Favicon & App Icon**: Imagen PNG transparente del matraz (`public/favicon.png`, `src/app/icon.png`, `src/app/apple-icon.png`), integrado automáticamente en Next.js 15 App Router y configurado en el `metadata` de `layout.tsx`.
+- **Header & Footer Brand Logo**: Imagen PNG transparente oficial (`public/logo.png`). Se aplicó un recorte ajustado (trim) eliminando más de 50% de márgenes transparentes vacíos originales para que el arte ocupe el 98% del contenedor, optimizando la visibilidad a `h-10 sm:h-11` en Navbar y `h-11` en Footer.
+- **Favicon & App Icon**: Imagen PNG transparente del matraz (`public/favicon.png`, `src/app/icon.png`, `src/app/apple-icon.png`, `public/favicon.ico`). Se recortó ajustado y se centró en un lienzo cuadrado 512x512 para que el matraz aproveche la totalidad del área del icono en pestañas del navegador, configurado en el `metadata` de `layout.tsx`.
