@@ -46,7 +46,7 @@ export default function HeroSection() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-brand-emerald" />
-                  <span>NDA en 24 Horas</span>
+                  <span>Estimación en 48 Horas</span>
                 </div>
               </div>
             </div>

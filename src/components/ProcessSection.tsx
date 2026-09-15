@@ -16,10 +16,10 @@ export default function ProcessSection() {
     },
     {
       number: "03",
-      badge: "Fase 1 Bajo NDA",
+      badge: "Fase 1 Validada",
       title: "Desarrollo Iterativo",
       description:
-        "Arrancamos rápido bajo NDA completo. Pruebas y apruebas los avances de cada hito antes de proceder al pago de la siguiente fase.",
+        "Arrancamos rápido y con entregables claros. Pruebas y apruebas los avances de cada hito antes de proceder al pago de la siguiente fase.",
     },
   ];
 

@@ -130,7 +130,7 @@ export default function LeadCaptureSection() {
                 </h2>
 
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-normal max-w-md">
-                  Completa el formulario para agendar tu diagnóstico gratuito. Evaluaremos la viabilidad de tu idea técnica en menos de 48 horas bajo NDA estricto.
+                  Completa el formulario para agendar tu diagnóstico gratuito. Evaluaremos la viabilidad de tu idea técnica en menos de 48 horas con total confidencialidad.
                 </p>
               </div>
 
@@ -150,7 +150,7 @@ export default function LeadCaptureSection() {
                     <FileText className="w-5 h-5" />
                   </div>
                   <span className="text-slate-300 text-sm font-medium">
-                    NDA estándar listo para firma
+                    Trato directo y confidencial
                   </span>
                 </div>
 
