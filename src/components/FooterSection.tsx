@@ -1,12 +1,27 @@
 "use client";
 
-import { Mail, Phone, Github } from "lucide-react";
+import { Mail, Phone, Github, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
 import { track } from "@vercel/analytics";
 import { FOOTER_LINKS } from "@/config/routes";
 
 export default function FooterSection() {
+  const [showPhoneTooltip, setShowPhoneTooltip] = useState(false);
+  const tooltipRef = useRef<HTMLLIElement>(null);
+
+  // Cerrar tooltip si se hace clic afuera
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+        setShowPhoneTooltip(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <footer className="bg-[#060d1a] border-t border-slate-800/80 text-slate-400 text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
@@ -44,28 +59,28 @@ export default function FooterSection() {
             </div>
           </div>
 
-          {/* Column 2: Collective */}
+          {/* Column 2: Navegación */}
           <div className="space-y-4">
-            <h4 className="text-white font-bold text-sm tracking-wide">Collective</h4>
+            <h4 className="text-white font-bold text-sm tracking-wide">Navegación</h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href={FOOTER_LINKS.collective.proceso} className="hover:text-emerald-400 transition-colors">
+                <Link href={FOOTER_LINKS.navegacion.proceso} className="hover:text-emerald-400 transition-colors">
                   Proceso
                 </Link>
               </li>
               <li>
-                <Link href={FOOTER_LINKS.collective.servicios} className="hover:text-emerald-400 transition-colors">
+                <Link href={FOOTER_LINKS.navegacion.servicios} className="hover:text-emerald-400 transition-colors">
                   Servicios
                 </Link>
               </li>
               <li>
-                <Link href={FOOTER_LINKS.collective.estandares} className="hover:text-emerald-400 transition-colors">
+                <Link href={FOOTER_LINKS.navegacion.estandares} className="hover:text-emerald-400 transition-colors">
                   Estándares
                 </Link>
               </li>
               <li>
-                <Link href={FOOTER_LINKS.collective.trabajos} className="hover:text-emerald-400 transition-colors">
-                  Trabajos
+                <Link href={FOOTER_LINKS.navegacion.contacto} className="hover:text-emerald-400 transition-colors">
+                  Contacto
                 </Link>
               </li>
             </ul>
@@ -112,40 +127,89 @@ export default function FooterSection() {
                   {FOOTER_LINKS.contactoDirecto.emailText}
                 </a>
               </li>
-              <li className="flex items-center gap-2.5 text-slate-300">
-                <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a
-                  href={FOOTER_LINKS.contactoDirecto.phone}
-                  onClick={() => track("direct_contact_click", { type: "phone", number: "phone1" })}
-                  className="hover:text-emerald-400 transition-colors"
-                >
-                  {FOOTER_LINKS.contactoDirecto.phoneText}
-                </a>
+
+              {/* Teléfono Principal con Tooltip/Popover para líneas adicionales */}
+              <li ref={tooltipRef} className="relative">
+                <div className="flex flex-wrap items-center gap-2 text-slate-300">
+                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <a
+                    href={FOOTER_LINKS.contactoDirecto.phone}
+                    onClick={() => track("direct_contact_click", { type: "phone", number: "phone1" })}
+                    className="hover:text-emerald-400 transition-colors"
+                  >
+                    {FOOTER_LINKS.contactoDirecto.phoneText}
+                  </a>
+
+                  {/* Trigger de Tooltip/Popover */}
+                  <button
+                    type="button"
+                    onClick={() => setShowPhoneTooltip((prev) => !prev)}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-950/70 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-900/80 hover:text-emerald-300 transition-all cursor-pointer focus:outline-none"
+                    aria-label="Ver más números de contacto"
+                  >
+                    <span>+2 líneas</span>
+                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${showPhoneTooltip ? "rotate-180" : ""}`} />
+                  </button>
+                </div>
+
+                {/* Popover Card Flotante */}
+                {showPhoneTooltip && (
+                  <div className="absolute left-0 bottom-full mb-2.5 w-64 p-3.5 bg-[#0a1526] border border-slate-700 rounded-xl shadow-2xl shadow-black/80 z-30 space-y-2.5 animate-in fade-in slide-in-from-bottom-2 duration-150">
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+                      <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                        Líneas de Atención
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setShowPhoneTooltip(false)}
+                        className="text-slate-500 hover:text-slate-300 text-xs p-0.5 leading-none"
+                        aria-label="Cerrar"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <div className="space-y-2 text-xs">
+                      <div>
+                        <div className="text-[10px] text-emerald-400 font-semibold mb-0.5">Línea Principal</div>
+                        <a
+                          href={FOOTER_LINKS.contactoDirecto.phone}
+                          onClick={() => track("direct_contact_click", { type: "phone", number: "phone1" })}
+                          className="text-slate-200 hover:text-emerald-400 font-mono transition-colors block"
+                        >
+                          {FOOTER_LINKS.contactoDirecto.phoneText}
+                        </a>
+                      </div>
+
+                      {"phone2" in FOOTER_LINKS.contactoDirecto && (
+                        <div>
+                          <div className="text-[10px] text-slate-400 font-medium mb-0.5">Línea Directa 2</div>
+                          <a
+                            href={FOOTER_LINKS.contactoDirecto.phone2}
+                            onClick={() => track("direct_contact_click", { type: "phone", number: "phone2" })}
+                            className="text-slate-200 hover:text-emerald-400 font-mono transition-colors block"
+                          >
+                            {FOOTER_LINKS.contactoDirecto.phone2Text}
+                          </a>
+                        </div>
+                      )}
+
+                      {"phone3" in FOOTER_LINKS.contactoDirecto && (
+                        <div>
+                          <div className="text-[10px] text-slate-400 font-medium mb-0.5">Línea Directa 3</div>
+                          <a
+                            href={FOOTER_LINKS.contactoDirecto.phone3}
+                            onClick={() => track("direct_contact_click", { type: "phone", number: "phone3" })}
+                            className="text-slate-200 hover:text-emerald-400 font-mono transition-colors block"
+                          >
+                            {FOOTER_LINKS.contactoDirecto.phone3Text}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </li>
-              {"phone2" in FOOTER_LINKS.contactoDirecto && (
-                <li className="flex items-center gap-2.5 text-slate-300">
-                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <a
-                    href={FOOTER_LINKS.contactoDirecto.phone2}
-                    onClick={() => track("direct_contact_click", { type: "phone", number: "phone2" })}
-                    className="hover:text-emerald-400 transition-colors"
-                  >
-                    {FOOTER_LINKS.contactoDirecto.phone2Text}
-                  </a>
-                </li>
-              )}
-              {"phone3" in FOOTER_LINKS.contactoDirecto && (
-                <li className="flex items-center gap-2.5 text-slate-300">
-                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <a
-                    href={FOOTER_LINKS.contactoDirecto.phone3}
-                    onClick={() => track("direct_contact_click", { type: "phone", number: "phone3" })}
-                    className="hover:text-emerald-400 transition-colors"
-                  >
-                    {FOOTER_LINKS.contactoDirecto.phone3Text}
-                  </a>
-                </li>
-              )}
             </ul>
           </div>
 

@@ -21,6 +21,12 @@ export const FOOTER_LINKS = {
   socials: {
     github: "https://github.com/Forge-Aetheria",
   },
+  navegacion: {
+    proceso: "#proceso",
+    servicios: "#soluciones",
+    estandares: "#estandares",
+    contacto: "#contacto",
+  },
   collective: {
     proceso: "#proceso",
     servicios: "#soluciones",

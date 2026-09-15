@@ -132,14 +132,15 @@
 - **Brand**: Logo oficial Forge.lab (`/logo.png`) en Navbar y Footer + biografía corporativa.
 - **Socials**: Se ocultan temporalmente los enlaces de Facebook, Twitter y LinkedIn. Solo permanece GitHub o contenedor despejado.
 
-### 6.2 Contacto Directo (Ampliación a múltiples teléfonos)
-- **Email**: `forge.lap.ve@gmail.com`
-- **Teléfonos de Contacto (3 números)**:
-  - Teléfono 1 (Principal): `+58 412 316 1016`
-  - Teléfono 2 (Secundario): Configurable en `src/config/routes.ts`
-  - Teléfono 3 (Soporte / Alternativo): Configurable en `src/config/routes.ts`
+### 6.2 Navegación (Antes "Collective")
+- Columna renombrada a español consistente **"Navegación"** con enlaces: `Proceso`, `Servicios`, `Estándares`, `Contacto`.
 
-### 6.3 Bottom Bar
+### 6.3 Contacto Directo & Popover de Líneas Telefónicas
+- **Email**: `forge.lap.ve@gmail.com`
+- **Teléfono Principal**: `+58 412 316 1016` visible junto a un trigger interactivo `+2 líneas ▾`.
+- **Popover Tooltip**: Tarjeta flotante que despliega en clic/hover las 3 líneas directas de ingeniería con enlaces `tel:` directos y tracking de conversión.
+
+### 6.4 Bottom Bar
 - `© 2026 Forge.lab. Todos los derechos reservados.`
 - `Privacidad` | `Términos de Servicio`
 

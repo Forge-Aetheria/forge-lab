@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://forge-landing.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.forgelab.lat"),
   title: "Forge.lab | Colectivo Selecto de Ingenieros Senior",
   description: "Transformamos ideas complejas en aplicaciones web, móviles, herramientas cloud y software empresarial de alta calidad.",
   icons: {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Forge.lab | Colectivo Selecto de Ingenieros Senior",
     description: "Transformamos ideas complejas en aplicaciones web, móviles, herramientas cloud y software empresarial de alta calidad.",
-    url: "https://forge-landing.vercel.app",
+    url: "https://www.forgelab.lat",
     siteName: "Forge.lab",
     images: [
       {
