@@ -37,10 +37,10 @@ export const FOOTER_LINKS = {
     desktopTools: "#soluciones",
   },
   contactoDirecto: {
-    email: "mailto:contacto@collective.dev",
-    emailText: "contacto@collective.dev",
-    phone: "tel:+34900123456",
-    phoneText: "+34 900 123 456",
+    email: "mailto:forge.lap.ve@gmail.com",
+    emailText: "forge.lap.ve@gmail.com",
+    phone: "tel:+584123161016",
+    phoneText: "+58 412 316 1016",
   },
   legal: {
     privacidad: "#",

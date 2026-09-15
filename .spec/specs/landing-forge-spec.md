@@ -1,7 +1,7 @@
 # Technical Specification - Landing Forge Landing Page
 
 **Location**: `forge-landing/`
-**Specification Status**: COMPLETE (Refined section-by-section based on official design screenshots).
+**Specification Status**: COMPLETE & ACTIVELY MAINTAINED (Updated with Security & Branding Asset specs).
 
 ---
 
@@ -186,7 +186,7 @@
 
 ---
 
-## Section 5: Lead Capture & Contact Form (`lead-capture-section`)
+## Section 5: Lead Capture & Anti-Spam Security (`lead-capture-section`)
 
 ![Contact Form Screenshot](/Users/franciscomaneiro/.gemini/antigravity/brain/cd137f09-b0d9-419f-91cf-fa018874f11c/.user_uploaded/media_1789438732530.png)
 
@@ -195,31 +195,35 @@
 - **Outer Container Card**: Dark rounded card (`bg-[#0c182c] border border-slate-800 rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl`).
 
 ### 5.2 Left Column Content
-- **Top Badge**:
-  - Text: `CONTACTO`
-  - Style: Dark green pill badge (`bg-emerald-950/60 text-emerald-400 font-semibold text-xs tracking-wider uppercase px-4 py-1.5 rounded-full border border-emerald-500/30`).
-- **Headline**:
-  - Text: `"¿Listo para Dar el Siguiente Paso?"`
-  - Style: Bold white text (`text-white text-3xl sm:text-4xl font-extrabold`).
-- **Subtext**:
-  - Text: `"Completa el formulario para agendar tu diagnóstico gratuito. Evaluaremos la viabilidad de tu idea técnica en menos de 48 horas bajo NDA estricto."`
-  - Style: Muted slate text (`text-slate-300 text-sm leading-relaxed max-w-md`).
-- **Trust Badges (2 Items)**:
-  - Item 1: Clock icon in emerald square (`Clock` in `bg-emerald-950/80 text-emerald-400 p-2 rounded-lg border border-emerald-500/30`) + `"Respuesta garantizada en menos de 24h"`.
-  - Item 2: Document icon in emerald square (`FileText` in `bg-emerald-950/80 text-emerald-400 p-2 rounded-lg border border-emerald-500/30`) + `"NDA estándar listo para firma"`.
+- **Top Badge**: `CONTACTO`
+- **Headline**: `"¿Listo para Dar el Siguiente Paso?"`
+- **Subtext**: `"Completa el formulario para agendar tu diagnóstico gratuito. Evaluaremos la viabilidad de tu idea técnica en menos de 48 horas bajo NDA estricto."`
+- **Trust Badges**:
+  - `Respuesta garantizada en menos de 24h`
+  - `NDA estándar listo para firma`
 
-### 5.3 Right Column Form Card (Dark Theme)
-- **Card Container**: Darker background card (`bg-[#0a1424] rounded-2xl p-6 sm:p-8 border border-slate-800/80`).
-- **Form Inputs**:
-  1. `Nombre Completo` (Placeholder: `"Ej. Juan Pérez"`, dark input `bg-[#070f1e] text-white border-slate-800`).
-  2. `Correo Corporativo` (Placeholder: `"Ej. juan@empresa.com"`, dark input `bg-[#070f1e] text-white border-slate-800`).
-  3. `Tipo de Proyecto` (Dropdown select: `"Selecciona una opción..."`, dark select `bg-[#070f1e] text-white border-slate-800`).
-  4. `Breve descripción del software` (Textarea: `"Cuéntanos un poco sobre lo que buscas construir..."`, dark textarea `bg-[#070f1e] text-white border-slate-800`).
-- **Submit Button**:
-  - Text: `"Solicitar Diagnóstico Gratuito"` + `→` arrow icon.
-  - Style: Bright emerald green button (`bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 px-6 rounded-xl w-full flex items-center justify-center gap-2`).
-- **Security Subtext**:
-  - Text: `"Tus datos están protegidos por encriptación de nivel de servidor."` (`text-[10px] text-slate-500 text-center mt-3`).
+### 5.3 Form Fields & Select Options
+- `Nombre Completo` (`user_name`)
+- `Correo Electrónico` (`user_email`)
+- `Servicio` (`user_service`):
+  - `Desarrollo Web`
+  - `Marketing Digital`
+  - `Consultoría`
+- `Mensaje` (`user_message`)
+- `Solicitar Servicio` (Action Submit Button)
+
+### 5.4 🛡️ 3-Layer Anti-Spam & Rate-Limiting Protection (Security Spec)
+1. **Layer 1: Session Cooldown / Rate Limiter**:
+   - Stores the timestamp of the last successful submission in `localStorage` (`forge_last_submit_ts`).
+   - Requires a minimum cooldown of **60 seconds** before a new submission can be dispatched from the same browser/session.
+   - If triggered, displays an alert with the remaining seconds to wait.
+2. **Layer 2: Bot Time-to-Fill Velocity Check**:
+   - Records `formLoadedAt` timestamp upon component mounting.
+   - If form submission occurs in **under 2.5 seconds** (`Date.now() - formLoadedAt < 2500`), it is classified as an automated script and silently dropped without invoking EmailJS.
+3. **Layer 3: Honeypot Trap Field**:
+   - Includes a hidden input field (`_gotcha_hp`) hidden with `display: none` and `tabIndex={-1}`.
+   - Real users do not see or populate this field; automated crawlers/bots populate all fields indiscriminately.
+   - If `_gotcha_hp` contains any text on submission, the request is immediately discarded.
 
 ---
 
@@ -233,21 +237,32 @@
 
 ### 6.2 Top Footer Columns (4 Columns Grid)
 - **Column 1: Brand Column**:
-  - Logo: Emerald green icon (`>_` terminal icon in green box) + `"Forge.dev"` (`text-white font-bold text-xl`).
-  - Bio Text: `"Colectivo selecto de ingenieros de software senior dedicados a construir aplicaciones empresariales estables y escalables."` (`text-slate-400 text-xs sm:text-sm max-w-sm`).
-  - Social Buttons (4 Pill Icons): Facebook, Twitter, LinkedIn, GitHub (`bg-[#0a1424] text-slate-300 hover:bg-emerald-500 hover:text-white p-2.5 rounded-lg border border-slate-800`).
+  - Logo: Emerald green icon (`>_` terminal icon in green box) + `"Forge.lab"` (`text-white font-bold text-xl`).
+  - Bio Text: `"Colectivo selecto de ingenieros de software senior dedicados a construir aplicaciones empresariales estables y escalables."`
+  - Social Buttons (4 Pill Icons): Facebook, Twitter, LinkedIn, GitHub.
 - **Column 2: Collective**:
-  - Title: `"Collective"` (`text-white font-bold text-sm mb-4`).
-  - Links: `Proceso`, `Servicios`, `Estándares`, `Trabajos` (`text-slate-400 text-sm hover:text-emerald-400`).
+  - Title: `"Collective"`
+  - Links: `Proceso`, `Servicios`, `Estándares`, `Trabajos`.
 - **Column 3: Especialidades**:
-  - Title: `"Especialidades"` (`text-white font-bold text-sm mb-4`).
-  - Links: `Web Apps`, `Nativo Mobile`, `DevOps Cloud`, `Desktop Tools` (`text-slate-400 text-sm hover:text-emerald-400`).
+  - Title: `"Especialidades"`
+  - Links: `Web Apps`, `Nativo Mobile`, `DevOps Cloud`, `Desktop Tools`.
 - **Column 4: Contacto Directo**:
-  - Title: `"Contacto Directo"` (`text-white font-bold text-sm mb-4`).
-  - Item 1: Envelope icon in emerald (`Mail` icon) + `"contacto@collective.dev"` (`text-slate-300 text-sm`).
-  - Item 2: Phone icon in emerald (`Phone` icon) + `"+34 900 123 456"` (`text-slate-300 text-sm`).
+  - Title: `"Contacto Directo"`
+  - Item 1: Envelope icon in emerald (`Mail` icon) + `"contacto@collective.dev"`.
+  - Item 2: Phone icon in emerald (`Phone` icon) + `"+34 900 123 456"`.
 
 ### 6.3 Bottom Footer Bar
 - **Divider**: Thin dark horizontal line (`border-t border-slate-800/80 my-8`).
-- **Left Text**: `"© 2026 Forge.dev. Todos los derechos reservados."` (`text-slate-500 text-xs`).
-- **Right Links**: `"Privacidad"` | `"Términos de Servicio"` (`text-slate-500 text-xs hover:text-emerald-400`).
+- **Left Text**: `"© 2026 Forge.lab. Todos los derechos reservados."` (`text-slate-500 text-xs`).
+- **Right Links**: `"Privacidad"` | `"Términos de Servicio"`.
+
+---
+
+## Section 7: Favicon & Branding Assets Specification
+
+### 7.1 Architecture & Generation
+- **Source Logo**: Emerald rounded box (`#10b981`) with white terminal prompt glyph `>_`.
+- **Next.js App Router Native Handlers**:
+  - `src/app/icon.tsx`: Dynamically serves the high-DPI standard Favicon (32x32 / PNG).
+  - `src/app/apple-icon.tsx`: Dynamically serves the iOS Apple Touch Icon (180x180 / PNG).
+  - `src/app/icon.svg`: Modern Scalable Vector Graphics fallback for SVG-supported browsers.

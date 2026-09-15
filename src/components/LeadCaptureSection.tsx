@@ -1,15 +1,24 @@
 "use client";
 
-import { Clock, FileText, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
-import { useState, useRef } from "react";
+import { Clock, FileText, ArrowRight, CheckCircle2, AlertCircle, Loader2, ShieldCheck } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { EMAILJS_CONFIG } from "@/config/routes";
 
+const COOLDOWN_SECONDS = 60; // 60 segundos de espera entre envíos por sesión
+const MIN_FILL_TIME_MS = 2500; // Mínimo 2.5s para evitar envíos de bots instantáneos
+
 export default function LeadCaptureSection() {
   const formRef = useRef<HTMLFormElement>(null);
+  const formLoadedAt = useRef<number>(Date.now());
+
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [cooldownRemaining, setCooldownRemaining] = useState<number>(0);
+
+  // Honeypot field (invisible para humanos, rellenado por bots)
+  const [honeypot, setHoneypot] = useState("");
 
   const [formData, setFormData] = useState({
     user_name: "",
@@ -18,10 +27,59 @@ export default function LeadCaptureSection() {
     user_message: "",
   });
 
+  // Verificar si hay cooldown activo al montar
+  useEffect(() => {
+    formLoadedAt.current = Date.now();
+    const lastSubmitStr = localStorage.getItem("forge_last_submit_ts");
+    if (lastSubmitStr) {
+      const elapsedSeconds = Math.floor((Date.now() - parseInt(lastSubmitStr, 10)) / 1000);
+      if (elapsedSeconds < COOLDOWN_SECONDS) {
+        setCooldownRemaining(COOLDOWN_SECONDS - elapsedSeconds);
+      }
+    }
+  }, []);
+
+  // Timer para decrementar el cooldown
+  useEffect(() => {
+    if (cooldownRemaining <= 0) return;
+    const interval = setInterval(() => {
+      setCooldownRemaining((prev) => (prev > 1 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [cooldownRemaining]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setErrorMessage(null);
+
+    // 🛡️ Capa 1: Protección Honeypot (si el bot rellenó el campo oculto)
+    if (honeypot.trim() !== "") {
+      console.warn("Spam detectado via Honeypot trap.");
+      setSubmitted(true); // Falsificamos éxito sin llamar a EmailJS
+      return;
+    }
+
+    // 🛡️ Capa 2: Detección de velocidad de llenado (Time-to-Fill)
+    const timeToFill = Date.now() - formLoadedAt.current;
+    if (timeToFill < MIN_FILL_TIME_MS) {
+      console.warn("Spam detectado por velocidad anormal de llenado.");
+      setSubmitted(true); // Falsificamos éxito sin llamar a EmailJS
+      return;
+    }
+
+    // 🛡️ Capa 3: Cooldown / Rate Limiter por Timestamp de Sesión
+    const lastSubmitStr = localStorage.getItem("forge_last_submit_ts");
+    if (lastSubmitStr) {
+      const elapsedSeconds = Math.floor((Date.now() - parseInt(lastSubmitStr, 10)) / 1000);
+      if (elapsedSeconds < COOLDOWN_SECONDS) {
+        const remaining = COOLDOWN_SECONDS - elapsedSeconds;
+        setCooldownRemaining(remaining);
+        setErrorMessage(`Por favor espera ${remaining} segundos antes de enviar otra solicitud.`);
+        return;
+      }
+    }
+
+    setLoading(true);
 
     try {
       if (formRef.current) {
@@ -34,6 +92,10 @@ export default function LeadCaptureSection() {
           }
         );
       }
+
+      // Guardar timestamp del envío exitoso
+      localStorage.setItem("forge_last_submit_ts", Date.now().toString());
+      setCooldownRemaining(COOLDOWN_SECONDS);
       setSubmitted(true);
       setFormData({ user_name: "", user_email: "", user_service: "", user_message: "" });
     } catch (error: unknown) {
@@ -91,10 +153,19 @@ export default function LeadCaptureSection() {
                     NDA estándar listo para firma
                   </span>
                 </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <span className="text-slate-300 text-sm font-medium">
+                    Protección anti-spam y rate limit activo
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Form Card with EmailJS Integration */}
+            {/* Right Column: Form Card with EmailJS & Anti-Spam */}
             <div className="lg:col-span-7 bg-[#0a1424] border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl">
               {submitted ? (
                 <div className="py-12 text-center space-y-4">
@@ -108,7 +179,10 @@ export default function LeadCaptureSection() {
                     Gracias. Nos pondremos en contacto contigo pronto para evaluar tu solicitud.
                   </p>
                   <button
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => {
+                      setSubmitted(false);
+                      formLoadedAt.current = Date.now();
+                    }}
                     className="mt-4 px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-sm transition-all"
                   >
                     Enviar otra consulta
@@ -116,6 +190,20 @@ export default function LeadCaptureSection() {
                 </div>
               ) : (
                 <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+                  {/* Campo Honeypot invisible para humanos */}
+                  <div style={{ display: "none", opacity: 0, position: "absolute", left: "-9999px" }} aria-hidden="true">
+                    <label htmlFor="_gotcha_hp">No rellenar</label>
+                    <input
+                      type="text"
+                      id="_gotcha_hp"
+                      name="_gotcha_hp"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
+
                   {errorMessage && (
                     <div className="p-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-300 text-xs flex items-center gap-3">
                       <AlertCircle className="w-5 h-5 shrink-0 text-red-400" />
@@ -192,17 +280,19 @@ export default function LeadCaptureSection() {
                     />
                   </div>
 
-                  {/* Submit Button */}
+                  {/* Submit Button with Cooldown Handling */}
                   <button
                     type="submit"
-                    disabled={loading}
-                    className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-800 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-98"
+                    disabled={loading || cooldownRemaining > 0}
+                    className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-98"
                   >
                     {loading ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin text-white" />
                         <span>Enviando...</span>
                       </>
+                    ) : cooldownRemaining > 0 ? (
+                      <span>Reintentar en {cooldownRemaining}s</span>
                     ) : (
                       <>
                         <span>Solicitar Servicio</span>
