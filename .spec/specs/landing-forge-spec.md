@@ -172,3 +172,12 @@
   - Encabezado temático de desarrollo: `Endpoint no encontrado`.
   - Mensaje descriptivo indicando que la ruta no existe.
   - Botón de retorno al inicio con estilo esmeralda `Regresar a la base`.
+
+---
+
+## Section 11: Analíticas Web (`web-analytics`)
+- **Proveedor**: Vercel Web Analytics (`@vercel/analytics`).
+- **Implementación**: Componente `<Analytics />` en `src/app/layout.tsx`.
+- **Características**:
+  - Cero cookies invasivas (cumple 100% GDPR/CCPA sin requerir banner de consentimiento).
+  - Medición en tiempo real de visitantes únicos, páginas vistas, fuentes de referencia, países, dispositivos y velocidad web.
